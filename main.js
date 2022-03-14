@@ -1,55 +1,40 @@
-var form = document.getElementById('addForm');
-var itemList = document.getElementById('items');
-var filter = document.getElementById('filter');
+// const btn= document.querySelector('.btn');
 
-form.addEventListener('submit', addItem);
-itemList.addEventListener('click', removeItem);
-filter.addEventListenerd("keyup", filterItems);
+// btn.addEventListener('mouseout',(e)=>{
+//     e.preventDefault();
+//     document.querySelector('#my-form').getElementsByClassName.background = '#ccc';
+//     document.querySelector('body').classList.add('bg-dark');
+//     document.querySelector('.item').lastElementChild.innerHTML = '<h1> Hello </h1>';
+// });
+const myForm = document.querySelector('#my-form');
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const msg = document.querySelector('.msg');
+const userList = document.querySelector('#user');
 
-function addItem(e)
-{
+myForm.addEventListener('submit', onsubmit);
+function onsubmit(e){
     e.preventDefault();
-
-    var newItem = document.getElementById('item').value;
-
-    var li = document.createElement('li');
-
-    li.className = 'list-group-item';
-
-    li.appendChild(document.createTextNode(newItem));
-
-    var deleteBtn = document.createElement('button');
-    deleteBtn.className= 'btn btn-danger btn-sm float-rigt delete';
-    deleteBtn.appendChild(document.createTextNode('x'));
-    li.appendChild(deleteBtn);
-    itemList.appendChild(li);
-
-
-    itemList.appendChild(li);
-}
-function removeItem(e){
-    if(e.target.classList.contains('delete')){
-        if(confirm('Are You Sure:')){
-            var li = e.target.parentElement;
-            itemList.removeChild(li);
-        }
-    }
-}
-function filterItems(e)
-{
-    var text = e.target.value.toLowerCase();
-    var items = itemList.getElementsByTagName('li');
-   // console.log(items);
-   Array.form(items).forEach(function(item){
-    var itemName = item.firstChild.textContent;
-    if( itemName.toLowerCase().indexof(text) !=-1)
-    {
-        item.style.display= 'block';
+    if(nameInput.value== ''|| emailInput.value== ''){
+        msg.classList.add('error');
+        msg.innerHTML = 'Please enter all fields';
+        setTimeout(()=>msg.remove(), 3000)
     }
     else{
-        item.style.display= 'none';
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode('${nameInput.value}: ${emailInput.value}'));
+        userList.appendChild(li);
+        nameInput.value = '';
+        emailInput.value = '';
     }
-   
-});
+}
+function saveToLocalStorage(event){
+    event.preventDefault();
+    const name = event.name.value;
+    const email = event.email.value;
+   // const phoneNumber = event.MobileNumber.value;
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
+   // localStorage.setItem('phoneNumber', MobileNumber);
 
 }
