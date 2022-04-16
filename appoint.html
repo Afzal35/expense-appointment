@@ -25,8 +25,8 @@
                 }
                 axios.post("https://crudcrud.com/api/994c252f2fd9437e8cce1949b8a6814c/appointmentdata",obj)
                 .then((respose) =>{
-                    showNewUserOnScreen(respone.data)
-                    console.log(respone)
+                    showNewUserOnScreen(respose.data)
+                    console.log(respose)
                 })
                 .catch((err)=>{
                     //document.body.innerHTML= document.body.innerHTML + "<h4>Something Went Wrong </h4>"
@@ -48,15 +48,7 @@
                     console.log(error)
                 })
                 console.log(data)
-               /* const localStorageObj = localStorage;
-                const localstoragekeys  = Object.keys(localStorageObj)
-
-                for(var i =0; i< localstoragekeys.length; i++){
-                    const key = localstoragekeys[i]
-                    const userDetailsString = localStorageObj[key];
-                    const userDetailsObj = JSON.parse(userDetailsString);
-                    showNewUserOnScreen(userDetailsObj)
-                }*/
+               
             })
 
             function showNewUserOnScreen(user){
@@ -69,7 +61,7 @@
                 }
 
                 const parentNode = document.getElementById('listOfUsers');
-                const childHTML = `<li id=${user._id}> ${user.name} - ${user.email} -${user.number}
+                const childHTML = `<li id=${user._id}> ${user.name} - ${user.email}
                                         <button onclick=deleteUser('${user._id}')> Delete User </button>
                                         <button onclick=editUserDetails('${user.email}','${user.name}','${user.phoneNumber}','${user._id}')>Edit User </button>
                                      </li>`
@@ -91,6 +83,7 @@
             function deleteUser(userId){
 
                 axios.delete("https://crudcrud.com/api/994c252f2fd9437e8cce1949b8a6814c/appointmentdata")
+
                 .then((response)=> {
                     removeUserFromScreen(userId)
                 })
